@@ -1,0 +1,12 @@
+{
+    "name" : "john",
+    "company" : "tcs",
+    "contact" : [4239482424, 4234242444],
+    "address" : {
+        "aptno" : "424",
+        "society" : "jdajsdkdasd",
+        "city" : "stonemountain",
+        "country" : "usa",
+        "pincode" : 30088
+    }
+}
