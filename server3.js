@@ -25,7 +25,7 @@ app.get("/movies", (req, res)=>{
 
 app.post("/movies", (req, res)=>{
     MongoClient.connect(MongoURL, (err, client)=>{
-        const db = client.db("movie");
+        const db = client.db("movies");
         const collection = db.collection("movie");
         collection.save(req.body, function(err, response){
             res.send("inserted.")
