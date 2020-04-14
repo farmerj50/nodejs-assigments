@@ -1,56 +1,47 @@
 const fs = require("fs")
 //const prompt = require('prompt-sync')
-const prompt = require('prompt')
-// const rl = require('readline').createInterface({
-//     input: process.stdin,
-//     output: process.stdout
-//   });
-//const argv = require('yargs').argv
-//const readMe = fs.readFileSync('JSON.txt, 'utf8').split('\n');
-allFiles = []
+const prompt = require('prompt');
 
-const data = fs.writeFile('newfile.txt', 'Hello World!!!', function(err) {
-    if(err) throw err;
-    // for(i = 0; i < allFiles.length; i++){
-    //     data.push(allFiles)
-    //console.log(data)
-    // }
-    
-})
-    
+function setFileName(name, callback) {
+    getFileNames((files) => {
+        fs.writeFile("./files.json", JSON.stringify([...files, name]), (err, response) => {
+            callback()
+        })
+    })
+}
+
+function getFileNames(callback) {
+    fs.readFile("./files.json", "utf-8", (err, response) => {
+        callback(JSON.parse(response))
+    })
+}
+
+function promptUser() {
+    prompt.get(['file'], function (err, result) {
+        if (err) { return onErr(err); }
+        console.log('Command-line input received:');
+        console.log(result);
+        try {
+            getFileNames((allFiles) => {
+                console.log(allFiles)
+                if (allFiles.includes(result.file)) {
+                    console.log("The file exists");
+                    promptUser();
+                } else {
+                    console.log('The file does not exist.');
+                    fs.writeFile(result.file, 'You are Awesome!!!', function (err) {
+                        if (err) throw err;
+                        setFileName(result.file, ()=>{})
+                    })
+                }
+            })
+        } catch (err) {
+            console.error(err);
+        }
+    });
+}
+
 prompt.start();
 
-prompt.get(['file'], function (err, result) {
-    if (err) { return onErr(err); }
-    console.log('Command-line input received:');
-    console.log(result);        
-try {
-    if(fs.existsSync(result)) {
-        console.log("The file exists");
-        prompt.get(['please provide new file name'], function(err, data){
-            if (err) { return onErr(err); }
-            console.log('Command-line input received:');
-            console.log(data);
-            fs.appendFile.toString(data, 'You are Awesome!!!', function(err) {
-                if(err) throw err;
-                // for(i = 0; i < data.length; i++){
-                //     if(process.data === !allFiles)
-                //     allFiles++
-                // }
-                allFiles.push(data);
-                console.log(allFiles);
-                return allFiles;
-            })
-        })             
-       
-    } else {
-        console.log('The file does not exist.');
-        fs.writeFile.toString(data, 'You are Awesome!!!',)
-        // allFiles.push(`${result}`)
-        // console.log(allFiles);
-    } 
-} catch (err) {
-    console.error(err);
-}
-    
-});
+// run code.
+promptUser();

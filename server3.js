@@ -34,17 +34,74 @@ app.post("/movies", (req, res)=>{
     })
 })
 
-// app.put("/movies/:id", (req, res)=>{
-//     console.log(req.params.id);
-//     MongoClient.connect(MongoURL, (err, client)=>{
-//         const db = client.db("movie");
-//         const collection = db.collection("movie");
-//         collection.update({ name : "Black Panther" }, { $set : { achie : 2 } } ,function(err, response){
-//             console.log(err);
-//             res.send("updated.")
-//             client.close();
-    //    })
-    // })
-// });
+app.get("/movies/:name", (req, res)=>{
+    console.log(req.params.id);
+    MongoClient.connect(MongoURL, (err, client)=>{
+        const db = client.db("movie");
+        const collection = db.collection("movie");
+        collection.findone({ name : req.params.name } ,function(err, response){
+            console.log(err);
+            res.send("response")
+            client.close();
+       })
+    })
+})
+app.get("/movies/:rates", (req, res)=>{
+    console.log(req.params.id);
+    MongoClient.connect(MongoURL, (err, client)=>{
+        const db = client.db("movie");
+        const collection = db.collection("movie");
+        collection.find().sort({rates:-1}).limit(3) // for MAX
+            client.close();
+       })
+    })
+    app.put("/movies/:id", (req, res)=>{
+        console.log(req.params.id);
+        MongoClient.connect(MongoURL, (err, client)=>{
+            const db = client.db("movies");
+            const collection = db.collection("movie");
+            collection.update({ name : "xmen" }, { $set : { achie : "Super Hit" } } ,function(err, response){
+                console.log(err);
+                res.send("updated.")
+                client.close();
+            })
+        })
+    })
+    app.put("/movies/:id", (req, res)=>{
+        console.log(req.params.id);
+        MongoClient.connect(MongoURL, (err, client)=>{
+            const db = client.db("movies");
+            const collection = db.collection("movie");
+            collection.update({ name : "superman" }, { $set : { achiev : "Super Duper Hit" } } ,function(err, response){
+                console.log(err);
+                res.send("updated.")
+                client.close();
+            })
+        })
+    })
+    app.get("/movies/:achiev", (req, res)=>{
+        console.log(req.params.id);
+        MongoClient.connect(MongoURL, (err, client)=>{
+            const db = client.db("movie");
+            const collection = db.collection("movie");
+            collection.find().sort({achiev:-1}).limit(3) // for MAX
+                client.close();
+           })
+        })
+        app.get("/movies/:achiev", (req, res)=>{
+            console.log(req.params.id);
+            MongoClient.connect(MongoURL, (err, client)=>{
+                const db = client.db("movie");
+                const collection = db.collection("movie");
+                collection.findone({ achiev : req.params.achiev } ,function(err, response){
+                    console.log(err);
+                    res.send("response")
+                    client.close();
+               })
+            })
+        })
+    
+    
+
 
 app.listen(6500);
