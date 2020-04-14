@@ -14,7 +14,7 @@ const MongoURL = "mongodb://localhost:27017";
 app.get("/movies", (req, res)=>{
     
     MongoClient.connect(MongoURL, (err, client)=>{
-        const db = client.db("movie"); // Your Database name
+        const db = client.db("movies"); // Your Database name
         const collection = db.collection("movie"); // Your collection name
         collection.find({}).toArray((err, docs)=>{
             res.send(docs);
