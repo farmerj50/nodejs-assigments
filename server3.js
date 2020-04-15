@@ -37,7 +37,7 @@ app.post("/movies", (req, res)=>{
 app.get("/movies/:name", (req, res)=>{
     console.log(req.params.id);
     MongoClient.connect(MongoURL, (err, client)=>{
-        const db = client.db("movie");
+        const db = client.db("movies");
         const collection = db.collection("movie");
         collection.findone({ name : req.params.name } ,function(err, response){
             console.log(err);
