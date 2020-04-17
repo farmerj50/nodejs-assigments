@@ -1,13 +1,31 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 const app = express();
-const path = require('path')
-const fs = require('fs')
+const ejs = require("ejs");
+const expressGraphQL = require("express-graphql");
+const schema = require("./schema");
+const Resolvers = require("./resolvers")
 
-app.get("/", (req, res)=>{
-    console.log(req);
-    res.sendFile(path.join(__dirname, "person.json"));
-})
+const mongoose = require("mongoose");
+const db = mongoose.connect("mongodb://localhost:27017/movies", { useNewUrlParser: true })
+const user = require("./routes/user")
 
-app.listen(3000, (err)=>{
-    console.log("Server started successfully.");
-})
+app.set("view engine", "ejs");
+
+app.use(bodyParser.json({ type : "application/json" }))
+app.use(bodyParser.text({ type : "text/html" }))
+app.use(bodyParser.urlencoded({ extended : true }))
+
+
+app.use("/graphql", expressGraphQL({
+    schema : schema,
+    graphiql : true, // Development Env
+    rootValue : Resolvers,
+    
+}))
+
+app.use("/user", user);
+
+app.listen(3000, ()=>{
+    console.log("Server Started...")
+});

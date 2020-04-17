@@ -9,6 +9,6 @@ const UserSchema = new Schema({
     createdOn : { type : Date, default : Date.now }
 })
 
-const UserModel = new mongoose.model("user", UserSchema);
+const UserModel = new mongoose.model("user", UserSchema, "Users");
 
 module.exports = UserModel;
