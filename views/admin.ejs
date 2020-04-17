@@ -20,7 +20,16 @@
             </tr>
         </thead>
         <tbody>
-        <% posts.forEach(function(post){ %>
+        <% posts.forEach(function(post){ %><tr><td><button class="sendEmail">send</button></td></tr>
+        <script>
+            $(document).ready(function(){
+            $('.sendEmail').click(function(){
+                $(this).html($(this).html() == 'email' ? 'modify' : 'email');
+            });
+        });
+
+        </script>
+        
         <tr>
             <th><%= post._id %></th>
             <th><%= post.name %></th>
