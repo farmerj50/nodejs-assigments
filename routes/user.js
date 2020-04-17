@@ -12,7 +12,11 @@ Router.get("/dashboard", (req, res)=>{
         res.render("dashboard", { posts : response });
     })
 });
-
+Router.get("/admin", (req, res)=>{
+    UserModel.find().then((response)=>{
+        res.render("admin", { posts : response });
+    })
+});
 
 Router.post("/", (req, res)=>{
 
