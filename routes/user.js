@@ -14,6 +14,9 @@ Router.get("/", (req, res) => {
 Router.get("/signup", (req, res) => {
     res.render("signup")
 })
+Router.get("/admin", (req, res) => {
+    res.render("admin")
+})
 
 // Store data in mongo.
 Router.post("/signup", async (req, res) => {
