@@ -16,8 +16,7 @@ function AddUser(obj, args, context, info)
     {   
         const User = new UserModel({
             name : obj.name,
-            email : obj.email,
-            address : obj.address
+            email : obj.email
         })
         // Data like Object, Array, String, Number, Boolean
         // or

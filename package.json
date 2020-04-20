@@ -1,42 +1,39 @@
 {
-  "name": "learning",
+  "name": "node-learning",
   "version": "1.0.0",
-  "description": "Learning",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/angular-react-learning/node-learning.git"
-  },
-  "keywords": [
-    "Learning"
-  ],
-  "author": "praveen",
-  "license": "SEE LICENSE IN license.md",
-  "bugs": {
-    "url": "https://github.com/angular-react-learning/node-learning/issues"
-  },
-  "homepage": "https://github.com/angular-react-learning/node-learning#readme",
+  "description": "",
+  "main": "server.js",
   "dependencies": {
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
     "@babel/register": "^7.9.0",
     "axios": "^0.19.2",
     "babel-polyfill": "^6.26.0",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
-    "chalk": "^4.0.0",
-    "cjs-module": "^1.5.0",
     "ejs": "^3.0.2",
     "express": "^4.17.1",
     "express-graphql": "^0.9.0",
     "graphql": "^15.0.0",
+    "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.5.5",
-    "mongoose": "^5.9.9",
-    "prompt": "^1.0.0",
-    "request": "^2.88.2",
-    "util": "^0.12.2",
-    "yargs": "^15.3.1"
-  }
+    "mongoose": "^5.9.9"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node start.js",
+    "dev": "nodemon start.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angular-react-learning/node-learning.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/angular-react-learning/node-learning/issues"
+  },
+  "homepage": "https://github.com/angular-react-learning/node-learning#readme"
 }

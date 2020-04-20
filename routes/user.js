@@ -1,39 +1,97 @@
 const express = require("express");
 const Router = express.Router();
 const UserModel = require("../model/user");
-const { checkUsername } = require("../validator")
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
-Router.get("/", (req, res)=>{
-    res.render("add-user", {});
+const Config = require("../config")
+
+Router.get("/", (req, res) => {
+    res.send([])
+})
+
+// Render Form for signup
+Router.get("/signup", (req, res) => {
+    res.render("signup")
+})
+
+// Store data in mongo.
+Router.post("/signup", async (req, res) => {
+    // res.render("signup")
+    const hashedPassword = bcrypt.hashSync(req.body.password, 8);
+    const User = await UserModel.create({
+        username: req.body.username,
+        password: hashedPassword,
+        email: req.body.email,
+    });
+    res.send({ message: "user created successfully." })
+})
+
+Router.get("/login", (req, res) => {
+    res.render("login")
+})
+
+Router.post("/login", (req, res) => {
+
+    UserModel.findOne({ email: req.body.email }, (err, user) => {
+        if (err) { return res.status(500).send({ message: "error on server." }) }
+        if (!user) { res.redirect("/user/login") };
+
+        const passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
+
+        if (passwordIsValid) {
+            const token = jwt.sign({ id : user._id }, Config.SECRET_KEY, {
+                expiresIn : 86400
+            })
+            res.send({ token : token })
+        }
+        else {
+            res.send({ messge : "invalid user." })
+        }
+
+    })
+
+    // res.send({
+    //     token: 897938127391739123
+    // })
 });
+
+Router.post("/whoami", (req, res)=>{
+    const token = req.headers["x-access-token"];
+    if(!token){ res.status(401).send({ message : "no token found in request." }) };
+
+    jwt.verify(token, Config.SECRET_KEY, (err, decoded)=>{
+        UserModel.findById(decoded.id, { password : false }, (err, user)=>{
+            console.log(user);
+            res.send(user);
+        })
+    })
+
+})
+
+Router.post("/logout", (req, res) => {
+    res.send({
+        message: "User successfully logged out."
+    })
+})
+
+// Authentication controlled page.
+Router.get("/profile", (req, res) => {
+    res.send({
+        message: "User successfully logged out."
+    })
+})
 
 Router.get("/dashboard", (req, res)=>{
     UserModel.find().then((response)=>{
-        res.render("dashboard", { posts : response });
-    })
-});
-Router.get("/admin", (req, res)=>{
-    UserModel.find().then((response)=>{
-        res.render("admin", { posts : response });
-    })
-});
-
-Router.post("/", (req, res)=>{
-
-    if(req.body.name !== "" && checkUsername(req.body.name) &&  req.body.address !== "" && req.body.email !== "")
+        for (let index = 0; index < response.length; index++) 
+            
         {
-            const User = new UserModel({
-                name : req.body.name.trim(),
-                address : req.body.address.trim(),
-                email : req.body.email.trim()
-            })
-            User.save();
-            res.send("user has been added...");
+            const user = response[index];
         }
-    else
-        {
-            res.send("user input is invalid.");
-        }
-});
+        })
+    });
+
+
 
 module.exports = Router;
