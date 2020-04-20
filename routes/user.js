@@ -7,7 +7,7 @@ Router.get("/", (req, res)=>{
     res.render("add-user", {});
 });
 
-Router.get("/dashboard", (req, res)=>{
+Router.get("/get-news", (req, res)=>{
     UserModel.find().then((response)=>{
         res.render("dashboard", { posts : response });
     })
