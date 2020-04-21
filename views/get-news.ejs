@@ -1,18 +1,19 @@
-<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <title>Test</title>
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <link href='https://openweathermap.org/api' rel='stylesheet' type='text/css'>
+    <!-- <link rel="stylesheet" type="text/css" href="/css/style.css"> -->
+    <link href='https://newsapi.org/v2/top-headlines?country=us&apiKey=a6fb09a35e5346c2a96b5ae918cc1b4b'>
   </head>
   <body>
     <div class="container">
       <fieldset>
-        <form action="/" method="get">
-          <input name="latest newa" type="text" class="ghost-input" placeholder="get news" required>
-          <input type="submit" class="ghost-button" value="latest news">
+        <form action="/" method="post">
+          <input name="country" type="text" class="ghost-input" placeholder="Enter a Country" required>
+          <input type="submit" class="ghost-button" value="Add News">
         </form>
+       
+        
       </fieldset>
     </div>
   </body>

@@ -34,6 +34,7 @@
     "graphql": "^15.0.0",
     "mongodb": "^3.5.5",
     "mongoose": "^5.9.9",
+    "newsapi": "^2.4.0",
     "prompt": "^1.0.0",
     "request": "^2.88.2",
     "util": "^0.12.2",
