@@ -71,7 +71,7 @@ describe('Testing  my Rest Api', () => {
             });
 
     });
-    it('should  return status 200 for /movies', function (done) {
+    it('should  return should contain name value in news collections', function (done) {
         chai
             .request('http://localhost:3003')
             .get('/news')
@@ -82,7 +82,7 @@ describe('Testing  my Rest Api', () => {
             .catch(function (err) {
                 throw (err)
             })
-        it('should  return status 200 for /movies', function (done) {
+        it('should  return value title defects collections', function (done) {
             chai
                 .request('http://localhost:3003')
                 .get('/defects')
@@ -93,7 +93,7 @@ describe('Testing  my Rest Api', () => {
                 .catch(function (err) {
                     throw (err)
                 })
-            it('should  return status 200 for /movies', function (done) {
+            it('should  return createdon /defects collection', function (done) {
                 chai
                     .request('http://localhost:3003')
                     .get('/defects')
@@ -104,6 +104,18 @@ describe('Testing  my Rest Api', () => {
                     .catch(function (err) {
                         throw (err)
                     })
+                it('should fail expect the status to be 404', function (done) {
+                    chai
+                        .request('http://localhost:6500')
+                        .get('/movie')
+                        .then(function (res) {
+                            expect(res).to.have.status(200);
+                            done();
+                        })
+                        .catch(function (err) {
+                            throw (err);
+                     });
+                });
             });
         });
     });
